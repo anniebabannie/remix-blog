@@ -1,8 +1,12 @@
 import { statSync, existsSync, readdirSync, readFileSync } from 'fs';
-import { join } from 'path';
 import fs from 'fs/promises';
 import fm from 'front-matter';
 import { GitHubFile } from '~/utils/mdx.server';
+import path, { join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
 
 const contentPath = 'content'
 const blogBasePath = join(process.cwd(), 'content');

@@ -16,20 +16,8 @@ export let meta = ({ context }) => {
 	}];
 };
 
-export let loader = async function({}: LoaderFunctionArgs) {
-  return json({
-    blogPosts: await getPosts(),
-  }, {
-    headers: {
-      "Cache-Control": new CacheControl("swr").toString(),
-    }
-  });
-}
-
 
 export default function Blog() {
-  
-
   return (
     <div>
       <nav className="flex gap-5 items-center p-10">
