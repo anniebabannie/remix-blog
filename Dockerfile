@@ -11,6 +11,7 @@ WORKDIR /app
 
 # Set production environment
 ENV NODE_ENV=production
+ENV SESSION_SECRET=secretsadfsdf
 
 
 # Throw-away build stage to reduce size of final image
@@ -22,11 +23,11 @@ RUN apt-get update -qq && \
 
 # Install node modules
 COPY --link package.json package-lock.json .
+
 # Copy application code
 COPY --link . .
 
 RUN npm install --production=false
-
 
 # Build application
 RUN npm run build
