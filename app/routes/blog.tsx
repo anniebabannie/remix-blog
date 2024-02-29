@@ -1,4 +1,4 @@
-import { json, LoaderArgs, } from '@vercel/remix';
+import { json, LoaderArgs, } from "@remix-run/node";
 import { Link,  useLoaderData } from "@remix-run/react";
 import { BlogPost as BlogPostType } from '~/types';
 import { getPosts } from '~/utils/blog.server';

@@ -1,9 +1,7 @@
-import type { HeadersFunction, LinksFunction, LoaderFunction, MetaFunction } from "@vercel/remix";
-import { json } from "@vercel/remix";
+import { HeadersFunction, LinksFunction, LoaderFunction, MetaFunction, json } from "@remix-run/node";
 import {
   Links,
   useLoaderData,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -78,7 +76,6 @@ function App() {
         <ThemeBody ssrTheme={Boolean(data.theme)} />
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
