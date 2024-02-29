@@ -108,8 +108,8 @@ async function downloadFileBySha(sha: string) {
 	const { data } = await octokit.request(
 		'GET /repos/{owner}/{repo}/git/blobs/{file_sha}',
 		{
-			owner: env.GITHUB_OWNER,
-			repo: env.GITHUB_REPO,
+			owner: env.GITHUB_OWNER as string,
+			repo: env.GITHUB_REPO as string,
 			file_sha: sha,
 		},
 	)
@@ -121,8 +121,8 @@ async function downloadFile(path: string) {
 	const { data } = (await octokit.request(
 		'GET /repos/{owner}/{repo}/contents/{path}',
 		{
-			owner: env.GITHUB_OWNER,
-			repo: env.GITHUB_REPO,
+			owner: env.GITHUB_OWNER as string,
+			repo: env.GITHUB_REPO as string,
 			path,
 		},
 	)) as { data: { content?: string; encoding?: string } }
@@ -140,8 +140,8 @@ async function downloadFile(path: string) {
 
 async function downloadDirList(path: string) {
 	const resp = await octokit.repos.getContent({
-        owner: env.GITHUB_OWNER,
-        repo: env.GITHUB_REPO,
+        owner: env.GITHUB_OWNER as string,
+        repo: env.GITHUB_REPO as string,
         path,
 	})
 	const data = resp.data

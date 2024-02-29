@@ -1,6 +1,6 @@
 import fm from "front-matter";
 import { BlogPostAttributes } from "../app/types";
-import fs from 'fs/promises'
+import { promises } from 'fs'
 import { watch } from 'fs';
 
 type BlogPost = {
@@ -10,11 +10,11 @@ type BlogPost = {
 }
 
 async function walk(path: string, callback: (path: string, stat: any) => Promise<void> | void): Promise<void> {
-	const results = await fs.readdir(path)
+	const results = await promises.readdir(path)
 
 	await Promise.all(results.map(async (fileOrDirectory) => {
 		const filePath = `${path}/${fileOrDirectory}`
-		const stat = await fs.stat(filePath)
+		const stat = await promises.stat(filePath)
 
 		if (stat.isDirectory()) {
 			return walk(filePath, callback)
@@ -31,14 +31,14 @@ async function getPosts() {
 
 	let addFile = async (file: string) => {
 		if (file.endsWith('index.mdx')) {
-			let frontmatter = fm<BlogPostAttributes>(await fs.readFile(file, 'utf-8'));
+			let frontmatter = fm<BlogPostAttributes>(await promises.readFile(file, 'utf-8'));
 			blogPosts.push({
 				attributes: frontmatter.attributes,
 				body: frontmatter.attributes.excerpt.substring(0, 100) + '...',
 				url: `/blog/${file.substring(walkPath.length + 1, file.length - '/index.mdx'.length)}`
 			});
 		} else if (file.endsWith('.mdx')) {
-			let frontmatter = fm<BlogPostAttributes>(await fs.readFile(file, 'utf-8'));
+			let frontmatter = fm<BlogPostAttributes>(await promises.readFile(file, 'utf-8'));
 			blogPosts.push({
 				attributes: frontmatter.attributes,
 				body: frontmatter.attributes.excerpt.substring(0, 100) + '...',
@@ -56,7 +56,7 @@ async function getPosts() {
 		return aTime > zTime ? -1 : aTime === zTime ? 0 : 1
 	});
 
-	await fs.writeFile('./content/blog-cache.json', JSON.stringify(blogPosts));
+	await promises.writeFile('./content/blog-cache.json', JSON.stringify(blogPosts));
 }
 
 async function getPages() {
@@ -66,14 +66,14 @@ async function getPages() {
 
 	let addFile = async (file: string) => {
 		if (file.endsWith('index.mdx')) {
-			let frontmatter = fm<BlogPostAttributes>(await fs.readFile(file, 'utf-8'));
+			let frontmatter = fm<BlogPostAttributes>(await promises.readFile(file, 'utf-8'));
 			blogPosts.push({
 				attributes: frontmatter.attributes,
 				body: frontmatter.attributes.excerpt.substring(0, 100) + '...',
 				url: `/${file.substring(walkPath.length + 1, file.length - '/index.mdx'.length)}`
 			});
 		} else if (file.endsWith('.mdx')) {
-			let frontmatter = fm<BlogPostAttributes>(await fs.readFile(file, 'utf-8'));
+			let frontmatter = fm<BlogPostAttributes>(await promises.readFile(file, 'utf-8'));
 			blogPosts.push({
 				attributes: frontmatter.attributes,
 				body: frontmatter.attributes.excerpt.substring(0, 100) + '...',
@@ -91,7 +91,7 @@ async function getPages() {
 		return aTime > zTime ? -1 : aTime === zTime ? 0 : 1
 	});
 
-	await fs.writeFile('./content/page-cache.json', JSON.stringify(blogPosts));
+	await promises.writeFile('./content/page-cache.json', JSON.stringify(blogPosts));
 }
 
 
