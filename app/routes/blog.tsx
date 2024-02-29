@@ -10,9 +10,9 @@ export let meta = ({ context }) => {
 	let seoMeta = getSeoMeta({
 		title: `Blog`
 	});
-	return {
+	return [{
 		...seoMeta,
-	};
+	}];
 };
 
 export let loader = async function({}: LoaderArgs) {
@@ -30,20 +30,22 @@ export default function Index() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
-      <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
-        Blog
-      </h1>
-      <p className="mb-4 text-gray-600 dark:text-gray-400">
-      </p>
-        {data.blogPosts.slice(0, 10).map(post => (
-          <BlogPost key={post.url}
-            title={post.attributes.meta.title}
-            slug={post.url}
-            excerpt={post.attributes.excerpt}
-          />
-        ))}
-    </div>
+    <>
+      <div className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
+        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
+          Blog
+        </h1>
+        <p className="mb-4 text-gray-600 dark:text-gray-400">
+        </p>
+          {data.blogPosts.slice(0, 10).map(post => (
+            <BlogPost key={post.url}
+              title={post.attributes.meta.title}
+              slug={post.url}
+              excerpt={post.attributes.excerpt}
+            />
+          ))}
+      </div>
+    </>
   );
 }
 

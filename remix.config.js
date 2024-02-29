@@ -12,7 +12,7 @@ module.exports = {
   // serverBuildPath: "api/index.js",
   // publicPath: "/build/",
   future: {
-		v2_meta: false,
+		v2_meta: true,
     unstable_tailwind: true,
 	},
 };

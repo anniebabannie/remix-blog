@@ -35,11 +35,15 @@ export type LoaderData = {
   theme: Theme | null;
 };
 
-export const meta: MetaFunction = () => ({
-  ...seoMeta,
-  charset: "utf-8",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: MetaFunction = () => {
+  return [
+    {
+      ...seoMeta,
+      charset: "utf-8",
+      viewport: "width=device-width,initial-scale=1",
+    }
+  ]
+};
 
 export const links: LinksFunction = () => [
   ...seoLinks,
@@ -70,9 +74,7 @@ function App() {
         <ThemeHead ssrTheme={Boolean(data.theme)} />
       </head>
       <body>
-        <Container>
-          <Outlet />
-        </Container>
+        <Outlet />
         <ThemeBody ssrTheme={Boolean(data.theme)} />
         <ScrollRestoration />
         <Scripts />
