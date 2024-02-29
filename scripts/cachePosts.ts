@@ -100,6 +100,7 @@ getPages();
 
 if (process.argv.at(-1) === 'watch') {
 	watch('./content', (eventType, filename) => {
+		if (!filename) return;
 		if (filename.endsWith('.mdx')) {
 			getPosts();
 		}
