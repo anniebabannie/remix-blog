@@ -1,5 +1,5 @@
 import type {
-	LoaderArgs,
+	LoaderFunctionArgs,
 	MetaFunction,
 	HeadersFunction,
 	SerializeFrom,
@@ -14,7 +14,7 @@ import { mdxSerialize } from "~/utils/mdx.server";
 import { CacheControl } from "~/utils/cache-control.server";
 import { getSeoMeta } from "~/seo";
 
-export const loader = async ({params}: LoaderArgs) => {
+export const loader = async ({params}: LoaderFunctionArgs) => {
 	const files = await getContent(`pages/about`);
 	let post = files && await mdxSerialize(files[0].content);
 

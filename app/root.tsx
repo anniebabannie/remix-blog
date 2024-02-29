@@ -6,7 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch
+  LiveReload
 } from "@remix-run/react";
 
 import {
@@ -78,6 +78,7 @@ function App() {
         <ThemeBody ssrTheme={Boolean(data.theme)} />
         <ScrollRestoration />
         <Scripts />
+        <LiveReload/>
       </body>
     </html>
   );

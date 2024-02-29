@@ -80,12 +80,18 @@ export function loadMdxSingle(filepath) {
 	  const { attributes } = fm(fileContents);
   
 	  return {
-		date: attributes.date,
-		slug: entry.name.replace('.mdx', ''),
-		title: attributes.meta.title,
-		description: attributes.meta.description,
+			//@ts-ignore
+			date: attributes.date,
+			slug: entry.name.replace('.mdx', ''),
+			//@ts-ignore
+			title: attributes.meta.title,
+			//@ts-ignore
+			description: attributes.meta.description,
 	  };
 	});
   
-	return entries.filter(Boolean).sort((a, b) => b.date - a.date);
+	return entries.filter(Boolean).sort((a, b) => {
+		if (!a || !b) return 0;
+		return b.date - a.date
+	});
 }

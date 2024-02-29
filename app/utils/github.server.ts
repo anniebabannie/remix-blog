@@ -18,6 +18,7 @@ type ThrottleOptions = {
 const octokit = new Octokit({
 	auth: env.BOT_GITHUB_TOKEN,
 	throttle: {
+		// @ts-ignore
 		onRateLimit: (retryAfter: number, options: ThrottleOptions) => {
 			console.warn(
 				`Request quota exhausted for request ${options.method} ${options.url}. Retrying after ${retryAfter} seconds.`,
@@ -25,6 +26,7 @@ const octokit = new Octokit({
 
 			return true
 		},
+		// @ts-ignore
 		onAbuseLimit: (retryAfter: number, options: ThrottleOptions) => {
 			// does not retry, only logs a warning
 			octokit.log.warn(

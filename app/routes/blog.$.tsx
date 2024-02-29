@@ -1,6 +1,5 @@
 import type {
-	LoaderArgs,
-	MetaFunction,
+	LoaderFunctionArgs,
 	HeadersFunction,
 	SerializeFrom,
 } from "@remix-run/node";
@@ -14,7 +13,7 @@ import { mdxSerialize } from "~/utils/mdx.server";
 import { CacheControl } from "~/utils/cache-control.server";
 import { getSeoMeta, getSeoLinks } from "~/seo";
 
-export const loader = async ({params}: LoaderArgs) => {
+export const loader = async ({params}: LoaderFunctionArgs) => {
 	let path = params["*"];
 
 	invariant(path, "BlogPost: path is required");
@@ -38,7 +37,7 @@ export const headers: HeadersFunction = ({loaderHeaders}) => {
 	}
 }
 
-export const meta: MetaFunction = ({data}) => {
+export const meta = ({data}) => {
 	if (!data) return {};
 	let { post } = data as SerializeFrom<typeof loader>;
 
@@ -46,9 +45,9 @@ export const meta: MetaFunction = ({data}) => {
 		title: post.frontmatter.meta.title,
 		description: post.frontmatter.meta.description,
 	});
-	return {
+	return [{
 		...seoMeta,
-	};
+	}];
 }
 
 export const links = () => {
