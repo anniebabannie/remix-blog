@@ -9,15 +9,6 @@ import {
   LiveReload
 } from "@remix-run/react";
 
-import {
-  ThemeBody,
-  ThemeHead,
-  ThemeProvider,
-  useTheme,
-} from "~/utils/theme-provider";
-import type { Theme } from "~/utils/theme-provider";
-import { getThemeSession } from "~/utils/theme.server";
-
 import { CacheControl } from "~/utils/cache-control.server";
 
 import { getSeo } from "~/seo";
@@ -25,16 +16,9 @@ let [seoMeta, seoLinks] = getSeo();
 
 import tailwindStyles from "./tailwind.css"
 
-import Container from '~/components/Container'
-
 export const handle = {
   id: 'root',
 }
-
-export type LoaderData = {
-  theme: Theme | null;
-};
-
 export const meta: MetaFunction = () => {
   return [
     {
@@ -56,40 +40,20 @@ export const headers: HeadersFunction = () => {
   return { "Cache-Control": new CacheControl("swr").toString() };
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const themeSession = await getThemeSession(request);
-    return json({
-      theme: themeSession.getTheme(),
-    });
-};
 
-function App() {
-  const data = useLoaderData<LoaderData>();
-  const [theme] = useTheme();
+export default function App() {
   return (
-    <html lang="en" className={theme ?? ""}>
+    <html lang="en">
       <head>
         <Meta />
         <Links />
-        <ThemeHead ssrTheme={Boolean(data.theme)} />
       </head>
       <body>
         <Outlet />
-        <ThemeBody ssrTheme={Boolean(data.theme)} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload/>
       </body>
     </html>
-  );
-}
-
-export default function AppWithProviders() {
-  const data = useLoaderData<LoaderData>();
-
-  return (
-    <ThemeProvider specifiedTheme={data.theme}>
-      <App />
-    </ThemeProvider>
   );
 }
