@@ -23,7 +23,7 @@ export const loader = async ({params}: LoaderFunctionArgs) => {
 	const files = await getContent(`posts/${path}`);
 	let post = files && await mdxSerialize(files[0].content);
 	invariant(post, "Not found");
-
+	console.log(post)
 	return json({post}, {
 		headers: { 
 			"Cache-Control": new CacheControl("swr").toString() 
