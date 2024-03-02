@@ -1,5 +1,5 @@
-import { Link, useLoaderData } from "@remix-run/react";
-import cn from 'classnames';
+import { Link } from "@remix-run/react";
+import thumb from "~/assets/blog/flame-for-javascript-rethinking-serverless-thumb.png";
 
 export default function BlogPost({
   title,
@@ -7,13 +7,12 @@ export default function BlogPost({
   slug
 }){
   return (
-    <Link prefetch="intent" to={slug} className="w-full my-2 no-underline	">
-        <div className="flex flex-col justify-between md:flex-row">
-          <h4 className="w-full mb-2 text-lg font-medium text-blue-600 md:text-xl dark:text-gray-100">
-            {title}
-          </h4>
-        </div>
-        {excerpt && <p className="text-gray-600 dark:text-gray-300">{excerpt}...</p>}
+    <Link prefetch="intent" to={slug} className="w-full my-2 no-underline flex flex-col gap-4">
+      <div className="w-full bg-gray-200 rounded-lg h-[200px]"></div>
+      <h2 className="w-full text-3xl font-medium text-teal-600 dark:text-gray-100">
+        {title}
+      </h2>
+    {excerpt && <p className="text-gray-500 text-lg dark:text-gray-300">{excerpt}...</p>}
     </Link>
   );
 }

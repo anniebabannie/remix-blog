@@ -30,10 +30,10 @@ export default function Blog() {
   );
 }
 
-// export const ErrorBoundary = ({error}) => {
-//   return (
-//     <main>
-//       <h1>Unable to fetch list of blog posts. Please check back later</h1>
-//     </main>
-//   )
-// }
+export const ErrorBoundary = ({error}) => {
+  return (
+    <main>
+      <h1>Unable to fetch list of blog posts. Please check back later</h1>
+    </main>
+  )
+}
