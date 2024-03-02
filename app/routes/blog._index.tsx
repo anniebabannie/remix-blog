@@ -35,6 +35,7 @@ export default function BlogList() {
             title={post.attributes.meta.title}
             slug={post.url}
             excerpt={post.attributes.excerpt}
+            thumbnail={post.attributes.thumbnail}
           />
         ))}
       </div>

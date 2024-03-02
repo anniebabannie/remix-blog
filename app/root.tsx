@@ -40,6 +40,15 @@ export const headers: HeadersFunction = () => {
   return { "Cache-Control": new CacheControl("swr").toString() };
 };
 
+export async function loader() {
+  return json({
+    env: {
+      BUCKET_NAME: process.env.BUCKET_NAME,
+      AWS_ENDPOINT_URL_S3: process.env.AWS_ENDPOINT_URL_S3,
+    }
+  })
+}
+
 
 export default function App() {
   return (
