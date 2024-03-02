@@ -9,6 +9,7 @@ import thumbnailRubyConf from "~/assets/thumbnail-rubyconf2018.png";
 import annie1 from "~/assets/annie-1.jpg";
 import ExperienceDescription from '~/components/ExperienceDescription';
 import WritingLink from '~/components/WritingLink';
+import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,6 +21,9 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
       <>
+        <nav className="flex gap-5 items-center p-10 absolute min-w-full">
+          <Link to="/blog" className="text-gray-400 uppercase text-lg tracking-widest">Blog</Link>
+        </nav>
         <div className="flex flex-col gap-14 items-center text-center justify-center md:py-56 px-10 py-24">
           <img src={logo} className="max-w-[644px] max-h-[76px] w-full"/>
           <p className="text-gray-500 uppercase tracking-wider md:text-xl text-base">Developer Advocate &nbsp;•&nbsp; Software Engineer</p>

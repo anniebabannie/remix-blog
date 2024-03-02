@@ -19,7 +19,7 @@ export let meta = ({ context }) => {
 
 export default function Blog() {
   return (
-    <div>
+    <div className="bg-[url('assets/light-gradient-bg.png')] bg-cover min-h-screen">
       <nav className="flex gap-5 items-center p-10">
         <Link to="/"><img src={logo} className="max-w-[250px] max-h-[76px] w-full mb-1"/></Link>
         <span className="text-gray-400">/</span>

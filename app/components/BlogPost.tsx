@@ -7,7 +7,7 @@ export default function BlogPost({
   slug
 }){
   return (
-    <Link prefetch="intent" to={slug} className="w-full my-2 no-underline flex flex-col gap-4">
+    <Link prefetch="intent" to={slug} className="w-full my-2 no-underline flex flex-col gap-4 bg-white border border-solid border-gray-100 p-5 shadow hover:shadow-md transition-shadow rounded-lg">
       <div className="w-full bg-gray-200 rounded-lg h-[200px]"></div>
       <h2 className="w-full text-3xl font-medium text-teal-600 dark:text-gray-100">
         {title}
