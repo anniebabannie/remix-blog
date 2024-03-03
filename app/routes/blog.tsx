@@ -19,18 +19,18 @@ export let meta = ({ context }) => {
 
 export default function Blog() {
   return (
-    <div className="bg-[url('assets/light-gradient-bg.png')] bg-cover min-h-screen">
+    <div className="bg-[url('assets/light-gradient-bg.png')] dark:bg-dark-mode-gradient bg-cover min-h-screen">
       <nav className="flex gap-5 items-center p-10">
         <Link to="/"><img src={logo} className="max-w-[250px] max-h-[76px] w-full mb-1"/></Link>
-        <span className="text-gray-400">/</span>
-        <Link to="/blog" className="text-gray-400 uppercase text-xl tracking-widest">Blog</Link>
+        <span className="text-gray-400 dark:text-gray-100 ">/</span>
+        <Link to="/blog" className="text-gray-400 dark:text-gray-100 uppercase text-xl tracking-widest">Blog</Link>
       </nav>
       <Outlet/>
       <footer className="flex items-center justify-center py-20 pb-36">
-        <div className="flex gap-6">
-          <div>Follow Annie on Twitter <a href="https://twitter.com/_anniebabannie_" target="_blank">@_anniebabannie_</a></div>
-          <div>•</div>
-          <div>© {new Date().getFullYear()} Annie Sexton</div>
+        <div className="flex flex-col items-center md:flex md:flex-row gap-6">
+          <div className="dark:text-gray-200">Follow Annie on Twitter <a href="https://twitter.com/_anniebabannie_" target="_blank">@_anniebabannie_</a></div>
+          <div className="dark:text-gray-200">•</div>
+          <div className="dark:text-gray-200">© {new Date().getFullYear()} Annie Sexton</div>
         </div>
       </footer>
     </div>

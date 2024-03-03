@@ -28,8 +28,12 @@ export let loader = async function({}: LoaderFunctionArgs) {
 export default function BlogList() {
   const data = useLoaderData<typeof loader>();
   return (
-    <div className="flex flex-col items-start justify-center w-full max-w-4xl mx-auto mb-16">
-      <div className="grid grid-cols-2 gap-8">
+    <div className="flex flex-col items-start justify-center w-full max-w-5xl mx-auto mb-16">
+      <div className="flex flex-col w-full text-center mb-16">
+        <h1 className="font-serif dark:text-gray-200 text-gray-700 h1">Howdy, friend.</h1>
+        <p className="max-w-2xl text-gray-500 dark:text-gray-300 mx-auto"> My name is Annie, and I write about software engineering, product development, and tech-shenanigans.</p>
+      </div>
+      <div className="flex flex-col px-6 md:grid md:grid-cols-2 gap-8">
         {data.blogPosts.slice(0, 10).map(post => (
           <BlogPost key={post.url}
             date={post.attributes.date}

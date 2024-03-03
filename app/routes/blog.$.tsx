@@ -61,19 +61,19 @@ export default function BlogPost() {
 	const { env } = useRouteLoaderData('root') as { env: { BUCKET_NAME: string, AWS_ENDPOINT_URL_S3: string } };
 	console.log(post)
 	return (
-		<article className="post flex flex-col items-start justify-center mb-16">
+		<article className="post flex flex-col items-start justify-center mb-16 px-6">
 			<div className="w-full max-w-2xl mx-auto">
-				<h1 className="font-serif">{post.frontmatter.meta.title}</h1>
+				<h1 className="font-serif dark:text-gray-200 text-gray-700">{post.frontmatter.meta.title}</h1>
 					<div className="text-center mb-8">
-						<time className="text-sm text-gray-400" dateTime={post.frontmatter.date}>Written by Annie Sexton • {new Date(post.frontmatter.date).toDateString()}</time>
+						<time className="text-sm text-gray-400" dateTime={post.frontmatter.date}>Written and illustrated by Annie Sexton • {new Date(post.frontmatter.date).toDateString()}</time>
 					</div>
 			</div>
 			<div className="w-full max-w-4xl mx-auto">
 				<img className="rounded-lg mb-10 mt-5 shadow-lg object-cover object-center" src={`${env.AWS_ENDPOINT_URL_S3}/${env.BUCKET_NAME}${pathname}/${post.frontmatter.thumbnail}`} alt={post.frontmatter.alt} />
 			</div>
 			<div className="w-full max-w-2xl mx-auto">
-				<div className="w-full mt-4 prose dark:prose-dark max-w-none">
-					<MDXPage code={post.code} />
+				<div className="w-full mt-4 dark:text-gray-200 text-gray-700 max-w-none">
+					<MDXPage code={post.code}/>
 				</div>
 			</div>
 		</article>
