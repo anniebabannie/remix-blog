@@ -32,6 +32,7 @@ export default function BlogList() {
       <div className="grid grid-cols-2 gap-8">
         {data.blogPosts.slice(0, 10).map(post => (
           <BlogPost key={post.url}
+            date={post.attributes.date}
             title={post.attributes.meta.title}
             slug={post.url}
             excerpt={post.attributes.excerpt}

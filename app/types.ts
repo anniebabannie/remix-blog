@@ -18,6 +18,7 @@ export type BlogPostAttributes = {
 	date: string
 	hero: string
 	excerpt: string
+  thumbnail?: string
 }
 
 export type FrontMatterBlogPost = {

@@ -26,6 +26,13 @@ export default function Blog() {
         <Link to="/blog" className="text-gray-400 uppercase text-xl tracking-widest">Blog</Link>
       </nav>
       <Outlet/>
+      <footer className="flex items-center justify-center py-20 pb-36">
+        <div className="flex gap-6">
+          <div>Follow Annie on Twitter <a href="https://twitter.com/_anniebabannie_" target="_blank">@_anniebabannie_</a></div>
+          <div>•</div>
+          <div>© {new Date().getFullYear()} Annie Sexton</div>
+        </div>
+      </footer>
     </div>
   );
 }

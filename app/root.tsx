@@ -33,7 +33,7 @@ export const links: LinksFunction = () => [
   ...seoLinks,
   { rel: "preconnect", href: "//fonts.gstatic.com", crossOrigin: "anonymous" },
   {rel: "stylesheet", href: tailwindStyles},
-  { rel: "stylesheet", href: "//fonts.googleapis.com/css?family=Work+Sans:300,400,600,700&amp;lang=en" },
+  { rel: "stylesheet", href: "//fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@100..900&display=swap" },
 ]
 
 export const headers: HeadersFunction = () => {

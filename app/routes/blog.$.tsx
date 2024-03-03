@@ -4,7 +4,7 @@ import type {
 	SerializeFrom,
 } from "@remix-run/node";
 import { json, redirect } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData, useLocation, useRouteLoaderData } from '@remix-run/react'
 
 import invariant from "tiny-invariant";
 import { MDXPage } from "~/components/MdxPage";
@@ -56,15 +56,26 @@ export const links = () => {
 
 export default function BlogPost() {
 	const {post} = useLoaderData<typeof loader>();
+	const location = useLocation();
+  const { pathname } = location;
+	const { env } = useRouteLoaderData('root') as { env: { BUCKET_NAME: string, AWS_ENDPOINT_URL_S3: string } };
 	console.log(post)
 	return (
-    <div className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
-      <article className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">{post.frontmatter.meta.title}</h1>
-        <div className="w-full mt-4 prose dark:prose-dark max-w-none">
-          <MDXPage code={post.code} />
-        </div>
-      </article>
-    </div>
+		<article className="post flex flex-col items-start justify-center mb-16">
+			<div className="w-full max-w-2xl mx-auto">
+				<h1 className="font-serif">{post.frontmatter.meta.title}</h1>
+					<div className="text-center mb-8">
+						<time className="text-sm text-gray-400" dateTime={post.frontmatter.date}>Written by Annie Sexton • {new Date(post.frontmatter.date).toDateString()}</time>
+					</div>
+			</div>
+			<div className="w-full max-w-4xl mx-auto">
+				<img className="rounded-lg mb-10 mt-5 shadow-lg object-cover object-center" src={`${env.AWS_ENDPOINT_URL_S3}/${env.BUCKET_NAME}${pathname}/${post.frontmatter.thumbnail}`} alt={post.frontmatter.alt} />
+			</div>
+			<div className="w-full max-w-2xl mx-auto">
+				<div className="w-full mt-4 prose dark:prose-dark max-w-none">
+					<MDXPage code={post.code} />
+				</div>
+			</div>
+		</article>
 	)
 }
