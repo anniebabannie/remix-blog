@@ -8,13 +8,14 @@ import {
   ScrollRestoration,
   LiveReload
 } from "@remix-run/react";
-
+import posthog from 'posthog-js'
 import { CacheControl } from "~/utils/cache-control.server";
 
 import { getSeo } from "~/seo";
 let [seoMeta, seoLinks] = getSeo();
 
 import tailwindStyles from "./tailwind.css"
+import { useEffect } from "react";
 
 export const handle = {
   id: 'root',
@@ -51,6 +52,20 @@ export async function loader() {
 
 
 export default function App() {
+  useEffect(() => {
+    posthog.init('phc_d6IEyEGy1uZbis3asripLPSCv9pDG9TliItH3dvx9Gf', {
+       api_host: 'https://app.posthog.com',
+       loaded: function (posthog) {
+        if (
+          location?.hostname === 'localhost' ||
+          location?.hostname === '127.0.0.1'
+        ) {
+          posthog.opt_out_capturing();
+        }
+      },
+    })
+  },[])
+
   return (
     <html lang="en">
       <head>
