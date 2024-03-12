@@ -84,6 +84,7 @@ export default function BlogPost() {
 			<div className="w-full max-w-2xl mx-auto">
 				<div className="w-full mt-4 dark:text-gray-200 text-gray-700 max-w-none">
 					<MDXPage code={post.code}/>
+					<div></div>
 				</div>
 			</div>
 		</article>
