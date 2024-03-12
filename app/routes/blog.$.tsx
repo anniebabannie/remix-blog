@@ -2,6 +2,7 @@ import type {
 	LoaderFunctionArgs,
 	HeadersFunction,
 	SerializeFrom,
+	MetaFunction,
 } from "@remix-run/node";
 import { json, redirect } from '@remix-run/node';
 import { useLoaderData, useLocation, useRouteLoaderData } from '@remix-run/react'
@@ -36,17 +37,23 @@ export const headers: HeadersFunction = ({loaderHeaders}) => {
 	}
 }
 
-export const meta = ({data}) => {
+export const meta: MetaFunction = ({data}) => {
+	const location = useLocation();
+  const { pathname } = location;
+	const { env } = useRouteLoaderData('root') as { env: { BUCKET_NAME: string, AWS_ENDPOINT_URL_S3: string } };
 	if (!data) return {};
 	let { post } = data as SerializeFrom<typeof loader>;
 
-	let seoMeta = getSeoMeta({
-		title: post.frontmatter.meta.title,
-		description: post.frontmatter.meta.description,
-	});
-	return [{
-		...seoMeta,
-	}];
+	return [
+		{ title: `${post.frontmatter.meta.title} | Annie Sexton` },
+		{ name: "description", content: post.frontmatter.meta.description },
+		{ name: "twitter:card", content: "summary_large_image" },
+		{ name: "twitter:image", content: post.frontmatter.thumbnail },
+		{ name: "twitter:description", content: post.frontmatter.meta.description },
+		{ name: "twitter:creator", content: "@_anniebabannie_" },
+		{ name: "og:description", content: post.frontmatter.meta.description },
+		{ name: "og:image", content: `${env.AWS_ENDPOINT_URL_S3}/${env.BUCKET_NAME}${pathname}/${post.frontmatter.thumbnail}` },
+	];
 }
 
 export const links = () => {
