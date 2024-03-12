@@ -11,8 +11,12 @@
     @apply text-teal-600 hover:text-teal-800 tracking-wide;
   }
 
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote {
+    @apply tracking-normal;
+  }
+
   p {
-    @apply mb-6 text-xl leading-8 tracking-[0.1px];
+    @apply mb-6 text-xl leading-8;
   }
 
   p:last-of-type {
@@ -21,6 +25,18 @@
 
   hr {
     @apply my-12 border-t border-gray-500;
+  }
+
+  pre {
+    @apply mb-6;
+  }
+
+  pre code {
+    @apply border-none;
+  }
+
+  code {
+    @apply bg-gray-100 border border-solid border-gray-200 text-teal-600 dark:border-gray-600 dark:bg-gray-700 dark:text-teal-200 px-2 py-1 rounded-md text-base;
   }
 
   .btn-input:focus-within {
@@ -54,7 +70,7 @@
   }
 
   .post h2, .h2 {
-    @apply my-2 text-4xl font-bold mb-5;
+    @apply my-2 text-4xl font-bold mb-5 tracking-normal;
   }
   
   .bg-dark-mode-gradient {
