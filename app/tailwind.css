@@ -1,17 +1,18 @@
+@import 'prism-syntax.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   * {
-    @apply tracking-wide font-sans;
+    @apply tracking-wide;
   }
   a {
     @apply text-teal-600 hover:text-teal-800 tracking-wide;
   }
 
   p {
-    @apply mb-6 text-xl leading-8;
+    @apply mb-6 text-xl leading-8 tracking-[0.1px];
   }
 
   p:last-of-type {
@@ -21,6 +22,32 @@
   hr {
     @apply my-12 border-t border-gray-500;
   }
+
+  .btn-input:focus-within {
+    --tw-ring-color: rgb(45 212 191);
+    box-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    border-radius: 7px;
+  }
+
+  .btn-input input[type="email"] {
+    padding: 8px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px 0 0 6px;
+    min-width: 300px;
+  }
+  .btn-input input[type="email"]:focus {
+    outline: none;
+    border-color: #14b8a6;
+  }
+  
+  .btn-input button {
+    padding: 8px 14px;
+    border: 1px solid #0f766e;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    background-color: #0d9488;
+    color: white;
+  }
   
   .post h1, .h1 {
     @apply text-center text-5xl font-bold mb-8 leading-tight tracking-normal;
@@ -29,6 +56,7 @@
   .post h2, .h2 {
     @apply my-2 text-4xl font-bold mb-5;
   }
+  
   .bg-dark-mode-gradient {
     background-image: linear-gradient(to bottom, #06102c, #011831, #001f36, #002639, #002c3c, #032f41, #073147, #0e344c, #233152, #3a2c51, #4e2549, #5d1e3a);
   }

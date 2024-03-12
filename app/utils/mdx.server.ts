@@ -19,33 +19,38 @@ async function mdxSerialize(markdownString: string) {
 	const {default: rehypePrism} = await import('rehype-prism-plus');
 	const {default: rehypeCodeTitles} = await import('rehype-code-titles');
 	const {default: remarkGfm} = await import('remark-gfm');
+	const {default: remarkCodeBlocks} = await import('remark-code-blocks');
+	const {default: remarkInlineCodeLang} = await import('remark-inline-code-language');
 	const {default: remarkToc} = await import('remark-toc');
 	const {default: rehypeSlug} = await import('rehype-slug');
+	const {default: rehypeHighlight} = await import('rehype-highlight');
 	const {default: rehypeAutolinkHeadings} = await import('rehype-autolink-headings');
 
 	const {frontmatter, code} = await bundleMDX({
 	  source: markdownString,
 	  mdxOptions(options, frontmatter) {
-		options.remarkPlugins = [
-		  ...(options?.remarkPlugins ?? []), 
-		  remarkGfm,
-		  remarkToc
-		];
-		options.rehypePlugins = [
-		  ...(options?.rehypePlugins ?? []),
-		  rehypeSlug,
-		  rehypeCodeTitles,
-		  rehypePrism,
-		  [
-			rehypeAutolinkHeadings,
-			{
-			  properties: {
-				className: ['anchor']
-			  }
-			}
-		  ]
-		];
-		return options;
+			options.remarkPlugins = [
+				...(options?.remarkPlugins ?? []), 
+				remarkGfm,
+				remarkToc,
+				remarkCodeBlocks,
+				remarkInlineCodeLang,
+			];
+			options.rehypePlugins = [
+				...(options?.rehypePlugins ?? []),
+				rehypeSlug,
+				rehypeCodeTitles,
+				rehypePrism,
+				[
+				rehypeAutolinkHeadings,
+				{
+					properties: {
+					className: ['anchor']
+					}
+				}
+				]
+			];
+			return options;
 	  },
 	})
 	return {frontmatter, code};
