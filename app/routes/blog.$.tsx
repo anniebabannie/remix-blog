@@ -43,16 +43,19 @@ export const meta: MetaFunction = ({data}) => {
 	const { env } = useRouteLoaderData('root') as { env: { BUCKET_NAME: string, AWS_ENDPOINT_URL_S3: string } };
 	if (!data) return {};
 	let { post } = data as SerializeFrom<typeof loader>;
+	const thumbnailUrl = `${env.AWS_ENDPOINT_URL_S3}/${env.BUCKET_NAME}${pathname}/${post.frontmatter.thumbnail}`;
 
 	return [
 		{ title: `${post.frontmatter.meta.title} | Annie Sexton` },
 		{ name: "description", content: post.frontmatter.meta.description },
 		{ name: "twitter:card", content: "summary_large_image" },
-		{ name: "twitter:image", content: post.frontmatter.thumbnail },
+		{ name: "twitter:title", content: post.frontmatter.meta.title },
+		{ name: "twitter:image", content: thumbnailUrl },
 		{ name: "twitter:description", content: post.frontmatter.meta.description },
+		{ name: "twitter:image:alt", content: post.frontmatter.meta.alt },
 		{ name: "twitter:creator", content: "@_anniebabannie_" },
 		{ name: "og:description", content: post.frontmatter.meta.description },
-		{ name: "og:image", content: `${env.AWS_ENDPOINT_URL_S3}/${env.BUCKET_NAME}${pathname}/${post.frontmatter.thumbnail}` },
+		{ name: "og:image", content: thumbnailUrl },
 	];
 }
 
