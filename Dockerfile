@@ -19,7 +19,7 @@ FROM base as build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
-    apt-get install -y python-is-python3 pkg-config build-essential 
+    apt-get install -y python-is-python3 pkg-config build-essential
 
 # Install node modules
 COPY --link .npmrc package-lock.json package.json ./
@@ -41,6 +41,8 @@ FROM base
 
 # Copy built application
 COPY --from=build /app /app
-
+RUN --mount=type=secret,id=ALL_SECRETS \
+    eval "$(base64 -d /run/secrets/ALL_SECRETS)"
+    
 # Start the server by default, this can be overwritten at runtime
 CMD [ "npm", "run", "start" ]
