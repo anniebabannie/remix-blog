@@ -41,8 +41,11 @@ FROM base
 
 # Copy built application
 COPY --from=build /app /app
+COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
+
 RUN --mount=type=secret,id=ALL_SECRETS \
     eval "$(base64 -d /run/secrets/ALL_SECRETS)"
     
+ENTRYPOINT litefs mount
 # Start the server by default, this can be overwritten at runtime
 CMD [ "npm", "run", "start" ]
