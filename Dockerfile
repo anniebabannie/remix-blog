@@ -31,6 +31,7 @@ RUN npm ci --include=dev
 
 # Build application
 RUN npm run build
+RUN npx prisma migrate deploy
 
 # Remove development dependencies
 RUN npm prune --production
@@ -41,11 +42,11 @@ FROM base
 
 # Copy built application
 COPY --from=build /app /app
-COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
+# COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
 
 RUN --mount=type=secret,id=ALL_SECRETS \
     eval "$(base64 -d /run/secrets/ALL_SECRETS)"
     
-ENTRYPOINT litefs mount
+# ENTRYPOINT litefs mount
 # Start the server by default, this can be overwritten at runtime
 CMD [ "npm", "run", "start" ]
