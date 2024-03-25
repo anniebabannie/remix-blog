@@ -1,0 +1,15 @@
+# Docker compose versions, not app versions
+version: "3.8"
+secrets:
+  DATABASE_URL:
+    file: ./.secret.database_url
+services:
+  app:
+    stdin_open: true
+    tty: true
+    env_file: local.env
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
