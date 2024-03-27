@@ -1,0 +1,58 @@
+# syntax = docker/dockerfile:1
+
+# Adjust NODE_VERSION as desired
+ARG NODE_VERSION=21.1.0
+FROM node:${NODE_VERSION}-slim as base
+
+LABEL fly_launch_runtime="Remix"
+
+# Remix app lives here
+WORKDIR /app
+
+# Set production environment
+ENV NODE_ENV=development
+ENV SESSION_SECRET=secretsadfsdf
+
+# LOCAL ONLY – do not commit this line to production Dockerfile
+ENV DATABASE_URL="file:./data.db?connection_limit=1"
+
+
+# Throw-away build stage to reduce size of final image
+FROM base as build
+
+# Install packages needed to build node modules
+RUN apt-get update -qq && \
+    apt-get install -y python-is-python3 pkg-config build-essential
+
+# Install node modules
+COPY --link .npmrc package-lock.json package.json ./
+
+# Copy application code
+COPY --link . .
+
+RUN npm ci --include=dev
+
+# Build application
+RUN npm run build
+# ENV DATABASE_URL="file:./data.db?connection_limit=1"
+RUN npx prisma migrate deploy
+
+# Remove development dependencies
+# RUN npm prune --production
+
+
+# Final stage for app image
+FROM base
+
+# Copy built application
+COPY --from=build /app /app
+# COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
+RUN apt-get update -qq && \
+    apt-get install -y openssl
+
+RUN --mount=type=secret,id=ALL_SECRETS \
+    eval "$(base64 -d /run/secrets/ALL_SECRETS)"
+    
+# ENTRYPOINT litefs mount
+# Start the server by default, this can be overwritten at runtime
+CMD [ "npm", "run", "dev" ]
