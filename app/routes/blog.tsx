@@ -23,7 +23,7 @@ export default function Blog() {
       <nav className="flex gap-5 items-center p-10">
         <Link to="/"><img src={logo} className="max-w-[250px] max-h-[76px] w-full mb-1"/></Link>
         <span className="text-gray-400 dark:text-gray-100 ">/</span>
-        <Link to="/blog" className="text-gray-400 dark:text-gray-100 uppercase text-xl tracking-widest">Blog</Link>
+        <Link to="/blog" className="text-gray-400 dark:text-gray-100 uppercase text-xl tracking-widest">Bloggggg</Link>
       </nav>
       <Outlet/>
       <footer className="flex items-center justify-center py-20 pb-36">
