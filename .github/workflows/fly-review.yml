@@ -20,7 +20,7 @@ jobs:
     # in the pull request UI.
     environment:
       name: review
-      url: pr-${{ github.event.number }}-${{ github.repository_owner }}-${{ github.repository}}.fly.dev
+      url: ${{ steps.deploy.outputs.url }}
 
     steps:
       - uses: actions/checkout@v4
