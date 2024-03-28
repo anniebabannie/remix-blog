@@ -14,6 +14,12 @@ jobs:
     permissions:
       pull-requests: write
 
+    # Create a GitHub deployment environment per review app so it shows up
+    # in the pull request UI.
+    environment:
+      name: review
+      url: ${{ steps.deploy.outputs.url }}
+
     # Only run one deployment at a time per PR.
     concurrency:
       group: pr-${{ github.event.number }}
