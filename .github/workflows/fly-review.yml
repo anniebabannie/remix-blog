@@ -21,13 +21,6 @@ jobs:
     concurrency:
       group: pr-${{ github.event.number }}
 
-    # Create a GitHub deployment environment per review app so it shows up
-    # in the pull request UI.
-    environment:
-      name: review
-      url: ${{ steps.deploy.outputs.url }}
-
-
     steps:
       - uses: actions/checkout@v4
       - name: Deploy
