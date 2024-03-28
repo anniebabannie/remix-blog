@@ -20,10 +20,9 @@ jobs:
     # in the pull request UI.
     environment:
       name: review
-    #   url: ${{ steps.deploy.outputs.url }}
 
     steps:
       - uses: actions/checkout@v4
       - name: Deploy
         id: deploy
-        uses: anniebabannie/fly-pr-review-apps@1.0.0
+        uses: superfly/fly-pr-review-apps@1.0.0
