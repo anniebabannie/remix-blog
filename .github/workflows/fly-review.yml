@@ -24,8 +24,9 @@ jobs:
     # Create a GitHub deployment environment per review app so it shows up
     # in the pull request UI.
     environment:
-      name: review
+      name: pr-${{ github.event.number }}
       url: ${{ steps.deploy.outputs.url }}
+
 
     steps:
       - uses: actions/checkout@v4
@@ -40,5 +41,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting!!!!!!!!'
+              body: ${{ steps.deploy.outputs.url }}
             })
