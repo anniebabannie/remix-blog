@@ -11,6 +11,8 @@ env:
 jobs:
   review_app:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
 
     # Only run one deployment at a time per PR.
     concurrency:
@@ -37,4 +39,3 @@ jobs:
               repo: context.repo.repo,
               body: '👋 Thanks for reporting!!!!!!!!'
             })
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
