@@ -11,14 +11,6 @@ env:
 jobs:
   review_app:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-
-    # Create a GitHub deployment environment per review app so it shows up
-    # in the pull request UI.
-    environment:
-      name: review
-      url: ${{ steps.deploy.outputs.url }}
 
     # Only run one deployment at a time per PR.
     concurrency:
@@ -29,13 +21,3 @@ jobs:
       - name: Deploy
         id: deploy
         uses: superfly/fly-pr-review-apps@1.0.0
-      - name: Leave a comment
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "${{ steps.deploy.outputs.url }}"
-            })
