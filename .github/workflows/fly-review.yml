@@ -16,12 +16,11 @@ jobs:
     # Only run one deployment at a time per PR.
     concurrency:
       group: pr-${{ github.event.number }}
+    env:
+      INPUT_NAME: remix-blog-annie
 
     steps:
       - uses: actions/checkout@v4
-      - name: Local deploy script
-        run: ./entrypoint.sh
-        shell: bash
-      # - name: Deploy
-      #   id: deploy
-      #   uses: anniebabannie/fly-pr-review-apps@1.0.2
+      - name: Deploy
+        id: deploy
+        uses: anniebabannie/fly-pr-review-apps@1.0.2
