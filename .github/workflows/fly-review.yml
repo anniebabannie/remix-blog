@@ -31,7 +31,7 @@ jobs:
         id: deploy
         uses: superfly/fly-pr-review-apps@1.0.0
       - name: Leave a comment
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             github.rest.issues.createComment({
