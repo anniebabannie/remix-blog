@@ -20,10 +20,11 @@ jobs:
     # in the pull request UI.
     environment:
       name: review
-      url: ${{ steps.deploy.outputs.url }}
+      url: https://google.com
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Get code
+        uses: actions/checkout@v4
 
       - name: PR Review Apps on fly.io
         uses: superfly/fly-pr-review-apps@1.2.0
