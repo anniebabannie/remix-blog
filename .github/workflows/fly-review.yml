@@ -30,5 +30,7 @@ jobs:
       - name: Deploy PR app to Fly.io
         id: deploy
         uses: superfly/fly-pr-review-apps@1.2.0
+        with:
+          name: remix-blog-annie-pr-${{ github.event.number }}
         
   
