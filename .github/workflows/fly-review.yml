@@ -21,3 +21,5 @@ jobs:
       - name: Deploy
         id: deploy
         uses: anniebabannie/fly-pr-review-apps@1.0.2
+        env:
+          INPUT_NAME: remix-blog-annie
