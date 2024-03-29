@@ -11,7 +11,8 @@ env:
 jobs:
   review_app:
     runs-on: ubuntu-latest
-
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
     # Only run one deployment at a time per PR.
     concurrency:
       group: pr-${{ github.event.number }}
@@ -20,12 +21,13 @@ jobs:
     # in the pull request UI.
     environment:
       name: review
-      url: https://google.com
+      url: ${{ steps.deploy.outputs.url }}
 
     steps:
       - name: Get code
         uses: actions/checkout@v4
 
-      - name: PR Review Apps on fly.io
+      - name: Deploy PR app to Fly.io
+        id: deploy
         uses: superfly/fly-pr-review-apps@1.2.0
   
