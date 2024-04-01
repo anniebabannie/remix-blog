@@ -37,4 +37,3 @@ jobs:
         # Here we're opting to use the parent (production) app name + PR number.
         with:
           name: remix-blog-annie-pr-${{ github.event.number }}
-          secrets: ENV_1=123 FOOBAR=hello
