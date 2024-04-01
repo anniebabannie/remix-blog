@@ -1,10 +1,12 @@
 name: Deploy Review App
 on:
+  # Run this workflow on every PR event. Existing review apps will be updated when the PR is updated.
   pull_request:
     types: [opened, reopened, synchronize, closed]
 
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  # Set these to your Fly.io organization and preferred region.
   FLY_REGION: iad
   FLY_ORG: personal
 
@@ -17,10 +19,11 @@ jobs:
     concurrency:
       group: pr-${{ github.event.number }}
 
-    # Create a GitHub deployment environment per staging app so it shows up
-    # in the pull request UI.
+    # Deploying apps with this "review" environment allows the URL for the app to be displayed in the PR UI.
+    # Feel free to change the name of this environment.
     environment:
       name: review
+      # The script in the `deploy` sets the URL output for each review app.
       url: ${{ steps.deploy.outputs.url }}
 
     steps:
@@ -30,5 +33,8 @@ jobs:
       - name: Deploy PR app to Fly.io
         id: deploy
         uses: superfly/fly-pr-review-apps@1.2.0
+        # with: name is optional, and will default to the repo owner + repo name + PR number.
+        # Here we're opting to use the parent (production) app name + PR number.
         with:
           name: remix-blog-annie-pr-${{ github.event.number }}
+          secrets: ENV_1=123 FOOBAR=hello
